@@ -1,0 +1,394 @@
+/* =========================================================================
+   NIVOR SYSTEM — Tokens
+   Fase 10 (Design System Master) define três camadas: primitivos, semânticos
+   e de componente. Nenhum componente de produto usa primitivo de cor direto.
+
+   Eixos de modo implementados:
+     data-theme          = dark | light
+     data-contrast       = normal | high
+     data-transparency   = normal | reduced
+     data-motion         = full | reduced
+     data-text-scale     = 100 | 130 | 160 | 200
+
+   A paleta é PROVISÓRIA (a documentação não congela paleta final).
+   Trocar os valores da camada 1 substitui a identidade sem tocar em componentes.
+   ========================================================================= */
+
+/* ---------- CAMADA 1 — PRIMITIVOS (sem significado de produto) ---------- */
+:root {
+  /* Grafite azulado — base do produto */
+  --color-slate-1000: #05080f;
+  --color-slate-950: #080d17;
+  --color-slate-900: #0c1320;
+  --color-slate-850: #111a2a;
+  --color-slate-800: #162033;
+  --color-slate-700: #1e2b41;
+  --color-slate-600: #2a3950;
+  --color-slate-500: #3d4d68;
+  --color-slate-400: #5b6c88;
+  --color-slate-300: #8695ac;
+  --color-slate-200: #b3bece;
+  --color-slate-100: #d8dfe9;
+  --color-slate-50: #eef2f7;
+  --color-white: #ffffff;
+
+  /* Accent frio principal — "azul glacial" */
+  --color-glacier-600: #1f6fd0;
+  --color-glacier-500: #2f89ee;
+  --color-glacier-400: #4ea2ff;
+  --color-glacier-300: #7cbcff;
+  --color-glacier-200: #b3d9ff;
+  --color-glacier-050: #e6f2ff;
+
+  /* Estados */
+  --color-jade-500: #17936a;
+  --color-jade-400: #2bb686;
+  --color-jade-300: #57d3a6;
+  --color-amber-500: #b3760a;
+  --color-amber-400: #e0961c;
+  --color-amber-300: #f5b544;
+  --color-coral-500: #c4453a;
+  --color-coral-400: #e35e50;
+  --color-coral-300: #ff8578;
+
+  /* Espaçamento */
+  --space-050: 2px;
+  --space-100: 4px;
+  --space-200: 8px;
+  --space-300: 12px;
+  --space-400: 16px;
+  --space-500: 20px;
+  --space-600: 24px;
+  --space-700: 32px;
+  --space-800: 40px;
+  --space-900: 56px;
+
+  /* Raios */
+  --radius-100: 6px;
+  --radius-200: 10px;
+  --radius-300: 14px;
+  --radius-400: 20px;
+  --radius-500: 26px;
+  --radius-pill: 999px;
+
+  /* Blur / opacidade de material */
+  --blur-100: 10px;
+  --blur-200: 18px;
+  --blur-300: 28px;
+
+  /* Movimento */
+  --motion-instant: 90ms;
+  --motion-fast: 160ms;
+  --motion-standard: 240ms;
+  --motion-emphasis: 380ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+  /* Tipografia — famílias */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable",
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-numeric: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- CAMADA 2 — SEMÂNTICOS (modo escuro, padrão) ---------- */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Superfícies */
+  --surface-base: var(--color-slate-1000);
+  --surface-base-gradient: radial-gradient(
+      120% 80% at 12% -10%,
+      rgba(47, 137, 238, 0.16) 0%,
+      rgba(5, 8, 15, 0) 62%
+    ),
+    radial-gradient(90% 60% at 100% 0%, rgba(43, 182, 134, 0.07) 0%, rgba(5, 8, 15, 0) 55%);
+  --surface-subtle: var(--color-slate-950);
+  --surface-elevated: var(--color-slate-900);
+  --surface-raised: var(--color-slate-850);
+  --surface-input: var(--color-slate-850);
+  --surface-selected: rgba(78, 162, 255, 0.14);
+  --surface-disabled: rgba(255, 255, 255, 0.04);
+  --surface-overlay: rgba(3, 6, 12, 0.72);
+  --surface-security: #241318;
+
+  /* Materiais de vidro (glass.*) */
+  --surface-glass-navigation: rgba(14, 21, 35, 0.72);
+  --surface-glass-action: rgba(20, 31, 49, 0.66);
+  --surface-glass-transient: rgba(16, 24, 39, 0.86);
+  --glass-blur-navigation: var(--blur-200);
+  --glass-blur-action: var(--blur-300);
+  --glass-blur-transient: var(--blur-300);
+  --glass-saturate: 150%;
+  --glass-highlight: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(255, 255, 255, 0) 42%
+  );
+
+  /* Texto e ícones */
+  --text-primary: #f3f6fb;
+  --text-secondary: #a9b6c9;
+  --text-tertiary: #7d8ca4;
+  --text-disabled: #55637a;
+  --text-inverse: #05080f;
+  --text-link: var(--color-glacier-300);
+  --icon-primary: #e2e9f3;
+  --icon-secondary: #92a1b7;
+
+  /* Bordas */
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.17);
+  --border-input: rgba(255, 255, 255, 0.14);
+  --border-selected: var(--color-glacier-400);
+
+  /* Ações */
+  --action-primary: var(--color-glacier-400);
+  --action-primary-pressed: var(--color-glacier-500);
+  --action-primary-text: #041526;
+  --action-secondary-surface: rgba(255, 255, 255, 0.07);
+  --action-secondary-text: var(--text-primary);
+  --action-destructive: var(--color-coral-400);
+
+  /* Estados do sistema */
+  --status-neutral: var(--color-slate-300);
+  --status-informative: var(--color-glacier-300);
+  --status-positive: var(--color-jade-300);
+  --status-caution: var(--color-amber-300);
+  --status-critical: var(--color-coral-300);
+  --status-offline: #9fb0c6;
+  --status-low-confidence: #b6a06a;
+  --status-provisional: #9aa8c0;
+
+  --status-positive-surface: rgba(43, 182, 134, 0.14);
+  --status-caution-surface: rgba(224, 150, 28, 0.15);
+  --status-critical-surface: rgba(227, 94, 80, 0.16);
+  --status-informative-surface: rgba(78, 162, 255, 0.14);
+  --status-neutral-surface: rgba(255, 255, 255, 0.06);
+
+  /* Foco */
+  --focus-ring: var(--color-glacier-300);
+
+  /* Gráficos */
+  --chart-axis: rgba(255, 255, 255, 0.16);
+  --chart-grid: rgba(255, 255, 255, 0.07);
+  --chart-label: var(--text-tertiary);
+  --chart-series-primary: var(--color-glacier-400);
+  --chart-series-secondary: var(--color-slate-400);
+  --chart-reference: rgba(255, 255, 255, 0.24);
+  --chart-missing: rgba(255, 255, 255, 0.1);
+
+  /* Sombras */
+  --shadow-raised: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-floating: 0 10px 30px -12px rgba(0, 0, 0, 0.7);
+  --shadow-modal: 0 28px 70px -20px rgba(0, 0, 0, 0.85);
+}
+
+/* ---------- CAMADA 2 — SEMÂNTICOS (modo claro) ---------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --surface-base: #f4f6fa;
+  --surface-base-gradient: radial-gradient(
+      120% 80% at 12% -10%,
+      rgba(47, 137, 238, 0.13) 0%,
+      rgba(244, 246, 250, 0) 60%
+    ),
+    radial-gradient(90% 60% at 100% 0%, rgba(23, 147, 106, 0.07) 0%, rgba(244, 246, 250, 0) 55%);
+  --surface-subtle: #eaeef5;
+  --surface-elevated: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-input: #ffffff;
+  --surface-selected: rgba(31, 111, 208, 0.1);
+  --surface-disabled: rgba(10, 20, 35, 0.05);
+  --surface-overlay: rgba(20, 28, 42, 0.42);
+  --surface-security: #fff1ef;
+
+  --surface-glass-navigation: rgba(255, 255, 255, 0.76);
+  --surface-glass-action: rgba(255, 255, 255, 0.72);
+  --surface-glass-transient: rgba(255, 255, 255, 0.92);
+  --glass-highlight: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0) 45%
+  );
+
+  --text-primary: #0c1524;
+  --text-secondary: #46566e;
+  --text-tertiary: #5d6a82;
+  --text-disabled: #8b96a9;
+  --text-inverse: #ffffff;
+  --text-link: var(--color-glacier-600);
+  --icon-primary: #1a2536;
+  --icon-secondary: #576781;
+
+  --border-subtle: rgba(12, 21, 36, 0.11);
+  --border-strong: rgba(12, 21, 36, 0.2);
+  --border-input: rgba(12, 21, 36, 0.18);
+  --border-selected: var(--color-glacier-600);
+
+  --action-primary: var(--color-glacier-600);
+  --action-primary-pressed: #17529c;
+  --action-primary-text: #ffffff;
+  --action-secondary-surface: rgba(12, 21, 36, 0.06);
+  --action-destructive: var(--color-coral-500);
+
+  --status-neutral: #55657e;
+  --status-informative: var(--color-glacier-600);
+  --status-positive: #127957;
+  --status-caution: #8a5a05;
+  --status-critical: var(--color-coral-500);
+  --status-offline: #55657e;
+  --status-low-confidence: #7a6115;
+  --status-provisional: #55657e;
+
+  --status-positive-surface: rgba(23, 147, 106, 0.12);
+  --status-caution-surface: rgba(179, 118, 10, 0.13);
+  --status-critical-surface: rgba(196, 69, 58, 0.11);
+  --status-informative-surface: rgba(31, 111, 208, 0.1);
+  --status-neutral-surface: rgba(12, 21, 36, 0.05);
+
+  --focus-ring: var(--color-glacier-600);
+
+  --chart-axis: rgba(12, 21, 36, 0.2);
+  --chart-grid: rgba(12, 21, 36, 0.09);
+  --chart-series-primary: var(--color-glacier-600);
+  --chart-series-secondary: #8695ac;
+  --chart-reference: rgba(12, 21, 36, 0.28);
+  --chart-missing: rgba(12, 21, 36, 0.1);
+
+  --shadow-raised: 0 1px 2px rgba(12, 21, 36, 0.08);
+  --shadow-floating: 0 12px 28px -14px rgba(12, 21, 36, 0.36);
+  --shadow-modal: 0 28px 64px -22px rgba(12, 21, 36, 0.45);
+}
+
+/* ---------- EIXO: ALTO CONTRASTE ---------- */
+:root[data-contrast="high"][data-theme="dark"] {
+  --surface-base: #000000;
+  --surface-base-gradient: none;
+  --surface-elevated: #0a0f18;
+  --surface-raised: #10192a;
+  --text-primary: #ffffff;
+  --text-secondary: #d6dfec;
+  --text-tertiary: #b9c5d6;
+  --border-subtle: rgba(255, 255, 255, 0.34);
+  --border-strong: rgba(255, 255, 255, 0.6);
+  --action-primary: #8dc4ff;
+  --action-primary-text: #000000;
+  --status-positive: #74e3b8;
+  --status-caution: #ffcb6b;
+  --status-critical: #ff9b90;
+  --status-low-confidence: #e0c88a;
+}
+:root[data-contrast="high"][data-theme="light"] {
+  --surface-base: #ffffff;
+  --surface-base-gradient: none;
+  --surface-subtle: #f2f4f8;
+  --text-primary: #000000;
+  --text-secondary: #24303f;
+  --text-tertiary: #33404f;
+  --border-subtle: rgba(0, 0, 0, 0.4);
+  --border-strong: rgba(0, 0, 0, 0.7);
+  --action-primary: #0b4a94;
+  --status-caution: #6b4503;
+  --status-low-confidence: #5d4a10;
+}
+
+/* ---------- EIXO: TRANSPARÊNCIA REDUZIDA (fallback opaco) ---------- */
+:root[data-transparency="reduced"] {
+  --glass-blur-navigation: 0px;
+  --glass-blur-action: 0px;
+  --glass-blur-transient: 0px;
+  --glass-saturate: 100%;
+  --glass-highlight: none;
+}
+:root[data-transparency="reduced"][data-theme="dark"] {
+  --surface-glass-navigation: #0d1421;
+  --surface-glass-action: #131d2f;
+  --surface-glass-transient: #101827;
+  --surface-overlay: rgba(3, 6, 12, 0.94);
+  --border-subtle: rgba(255, 255, 255, 0.16);
+}
+:root[data-transparency="reduced"][data-theme="light"] {
+  --surface-glass-navigation: #ffffff;
+  --surface-glass-action: #ffffff;
+  --surface-glass-transient: #ffffff;
+  --surface-overlay: rgba(20, 28, 42, 0.62);
+  --border-subtle: rgba(12, 21, 36, 0.18);
+}
+
+/* ---------- EIXO: MOVIMENTO ---------- */
+:root[data-motion="reduced"] {
+  --motion-instant: 1ms;
+  --motion-fast: 1ms;
+  --motion-standard: 1ms;
+  --motion-emphasis: 1ms;
+}
+
+/* ---------- EIXO: ESCALA DE TEXTO ---------- */
+:root {
+  --text-scale: 1;
+}
+:root[data-text-scale="130"] { --text-scale: 1.3; }
+:root[data-text-scale="160"] { --text-scale: 1.6; }
+:root[data-text-scale="200"] { --text-scale: 2; }
+
+/* ---------- CAMADA 2 — TIPOGRAFIA SEMÂNTICA ---------- */
+:root {
+  /* A decisão cresce com a escala, mas com teto: acima de ~48px ela deixaria
+     duração, motivo e ação fora da primeira dobra. O corpo do texto continua
+     escalando integralmente. */
+  --type-display-hero-size: min(calc(30px * var(--text-scale)), 48px);
+  --type-display-hero-line: 1.12;
+  --type-display-hero-weight: 680;
+  --type-display-hero-tracking: -0.024em;
+
+  --type-heading-page-size: calc(23px * var(--text-scale));
+  --type-heading-page-line: 1.2;
+  --type-heading-page-weight: 660;
+  --type-heading-page-tracking: -0.018em;
+
+  --type-heading-section-size: calc(16px * var(--text-scale));
+  --type-heading-section-line: 1.3;
+  --type-heading-section-weight: 640;
+
+  --type-title-card-size: calc(15px * var(--text-scale));
+  --type-title-card-line: 1.32;
+  --type-title-card-weight: 620;
+
+  --type-body-primary-size: calc(15px * var(--text-scale));
+  --type-body-primary-line: 1.5;
+
+  --type-body-secondary-size: calc(13.5px * var(--text-scale));
+  --type-body-secondary-line: 1.5;
+
+  --type-label-action-size: calc(15px * var(--text-scale));
+  --type-label-action-weight: 620;
+
+  --type-label-control-size: calc(13px * var(--text-scale));
+  --type-label-control-weight: 600;
+
+  --type-label-metric-size: calc(11px * var(--text-scale));
+  --type-label-metric-weight: 640;
+  --type-label-metric-tracking: 0.07em;
+
+  --type-caption-size: calc(12px * var(--text-scale));
+  --type-caption-line: 1.42;
+
+  --type-numeric-prominent-size: calc(26px * var(--text-scale));
+  --type-numeric-prominent-weight: 660;
+
+  /* Alvo de toque confortável (>= 44px) */
+  --target-min: 44px;
+}
+
+/* ---------- CAMADA 3 — TOKENS DE COMPONENTE ---------- */
+:root {
+  --component-decision-hero-surface: var(--surface-glass-action);
+  --component-decision-hero-radius: var(--radius-500);
+  --component-navigation-blur: var(--glass-blur-navigation);
+  --component-live-set-row-height: calc(48px * var(--text-scale));
+  --component-calendar-selected-border: var(--border-selected);
+  --component-sheet-radius: var(--radius-500);
+  --component-phone-width: 402px;
+}
