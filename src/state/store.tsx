@@ -434,14 +434,24 @@ const StoreContext = createContext<Store | null>(null);
 const PREF_KEY = 'nivor.proto.prefs.v1';
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, initialState, (init) => {
+  const [state, dispatch] = useReducer(reducer, initialState, (init): AppState => {
+    // O tema inicial respeita, nesta ordem: o que o ambiente já marcou no
+    // documento, a preferência salva e, por fim, a preferência do sistema.
+    const hosted = document.documentElement.dataset.theme;
+    const prefersLight =
+      typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: light)').matches;
+    const base: AppState = {
+      ...init,
+      theme: hosted === 'light' || hosted === 'dark' ? hosted : prefersLight ? 'light' : 'dark',
+    };
     try {
       const raw = localStorage.getItem(PREF_KEY);
-      if (!raw) return init;
+      if (!raw) return base;
       const prefs = JSON.parse(raw) as Partial<AppState>;
-      return { ...init, ...prefs };
+      // Um tema imposto pelo ambiente vence a preferência salva.
+      return { ...base, ...prefs, ...(hosted === 'light' || hosted === 'dark' ? { theme: hosted } : {}) };
     } catch {
-      return init;
+      return base;
     }
   });
 
@@ -474,6 +484,20 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     root.dataset.textScale = state.textScale;
     root.lang = 'pt-BR';
   }, [state.theme, state.contrast, state.transparency, state.motion, state.textScale]);
+
+  // Quando o ambiente troca o tema por fora (um seletor de tema da página que
+  // hospeda o protótipo), o estado acompanha em vez de sobrescrever a escolha.
+  useEffect(() => {
+    const root = document.documentElement;
+    const observer = new MutationObserver(() => {
+      const external = root.dataset.theme;
+      if ((external === 'light' || external === 'dark') && external !== state.theme) {
+        dispatch({ type: 'pref', patch: { theme: external } });
+      }
+    });
+    observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, [state.theme]);
 
   // Cronômetro do treino ao vivo.
   useEffect(() => {
